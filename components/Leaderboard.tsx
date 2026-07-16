@@ -270,6 +270,7 @@ export default function Leaderboard({ ipos }: { ipos: ScoredIPO[] }) {
                           {new Date(ipo.ipoDate).toLocaleDateString("en-US", {
                             month: "short",
                             year: "numeric",
+                            timeZone: "UTC",
                           })}
                         </div>
                       </td>
@@ -278,6 +279,7 @@ export default function Leaderboard({ ipos }: { ipos: ScoredIPO[] }) {
                           month: "short",
                           day: "numeric",
                           year: "numeric",
+                          timeZone: "UTC",
                         })}
                       </td>
                       <td className="px-2 py-3">

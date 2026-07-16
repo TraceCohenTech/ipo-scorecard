@@ -21,6 +21,7 @@ export default function CountUp({
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
+    let fallback: ReturnType<typeof setTimeout>;
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting && !started.current) {
@@ -33,13 +34,18 @@ export default function CountUp({
             if (t < 1) requestAnimationFrame(tick);
           };
           requestAnimationFrame(tick);
+          // rAF pauses in background tabs — guarantee the final value lands
+          fallback = setTimeout(() => setValue(end), duration + 200);
           observer.unobserve(el);
         }
       },
       { threshold: 0.3 }
     );
     observer.observe(el);
-    return () => observer.disconnect();
+    return () => {
+      observer.disconnect();
+      clearTimeout(fallback);
+    };
   }, [end, duration]);
 
   return (
