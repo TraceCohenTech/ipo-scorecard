@@ -8,6 +8,8 @@ import CountUp from "@/components/CountUp";
 import GradeBadge from "@/components/GradeBadge";
 import GradeDistribution from "@/components/GradeDistribution";
 import Leaderboard from "@/components/Leaderboard";
+import TickerTape from "@/components/TickerTape";
+import VintageReport from "@/components/VintageReport";
 import IPOScatterChart from "@/components/ScatterChart";
 import SectorBreakdown from "@/components/SectorBreakdown";
 import WinnersLosers from "@/components/WinnersLosers";
@@ -37,8 +39,13 @@ export default function Home() {
     <>
       <Nav />
 
+      {/* Ticker tape */}
+      <div className="pt-14">
+        <TickerTape ipos={scored} />
+      </div>
+
       {/* Hero */}
-      <section className="relative min-h-[600px] flex items-center overflow-hidden pt-14">
+      <section className="relative min-h-[560px] flex items-center overflow-hidden">
         <div className="mesh-bg">
           <div className="mesh-blob-3" />
         </div>
@@ -118,6 +125,7 @@ export default function Home() {
       {/* Main content */}
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-8">
         <GradeDistribution ipos={scored} />
+        <VintageReport ipos={scored} />
         <Leaderboard ipos={scored} />
         <IPOScatterChart ipos={scored} />
         <SectorBreakdown ipos={scored} />

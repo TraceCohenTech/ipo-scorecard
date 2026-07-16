@@ -9,6 +9,8 @@ import {
   ResponsiveContainer,
   ZAxis,
   Cell,
+  ReferenceLine,
+  ReferenceArea,
 } from "recharts";
 import { type ScoredIPO, GRADE_COLORS } from "@/data/grading";
 import Reveal from "./Reveal";
@@ -34,13 +36,69 @@ export default function IPOScatterChart({ ipos }: { ipos: ScoredIPO[] }) {
           Revenue growth vs. price return
         </h2>
         <p className="text-slate-500 text-sm mb-6">
-          Bubble size = latest annual revenue. Color = letter grade.
+          Bubble size = latest annual revenue. Color = letter grade. Top-right is where you want to
+          live: the business grew <em>and</em> the market paid you for it. Bottom-right is the trap
+          — revenue up, stock down, valuation sins still being digested.
         </p>
 
         <div className="h-[400px] sm:h-[500px]" role="img" aria-label="Scatter chart showing revenue growth versus price return for tech IPOs, colored by grade">
           <ResponsiveContainer width="100%" height="100%">
-            <RechartsScatter data={data}>
+            <RechartsScatter data={data} margin={{ top: 10, right: 10, bottom: 10, left: 0 }}>
               <CartesianGrid stroke="#e2e8f0" strokeDasharray="3 3" />
+              <ReferenceArea
+                x1={0}
+                x2={800}
+                y1={0}
+                y2={300}
+                fill="#10b981"
+                fillOpacity={0.04}
+              />
+              <ReferenceArea
+                x1={0}
+                x2={800}
+                y1={-100}
+                y2={0}
+                fill="#ef4444"
+                fillOpacity={0.03}
+              />
+              <ReferenceLine
+                x={0}
+                stroke="#94a3b8"
+                strokeWidth={1.5}
+              />
+              <ReferenceLine
+                y={0}
+                stroke="#94a3b8"
+                strokeWidth={1.5}
+                label={{
+                  value: "IPO price",
+                  position: "insideTopRight",
+                  fill: "#94a3b8",
+                  fontSize: 11,
+                }}
+              />
+              <ReferenceLine
+                y={295}
+                stroke="none"
+                label={{
+                  value: "COMPOUNDERS ↗",
+                  position: "insideTopRight",
+                  fill: "#059669",
+                  fontSize: 11,
+                  fontWeight: 700,
+                }}
+              />
+              <ReferenceLine
+                y={-95}
+                stroke="none"
+                label={{
+                  value: "GROWTH TRAPS ↘ (revenue up, stock down)",
+                  position: "insideBottomRight",
+                  fill: "#dc2626",
+                  fontSize: 11,
+                  fontWeight: 700,
+                }}
+              />
               <XAxis
                 dataKey="x"
                 type="number"

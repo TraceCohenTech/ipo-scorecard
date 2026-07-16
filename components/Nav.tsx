@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { BarChart3, Menu, X } from "lucide-react";
 
 const links = [
+  { label: "Vintages", href: "#vintages" },
   { label: "Leaderboard", href: "#leaderboard" },
   { label: "Scatter", href: "#scatter" },
   { label: "Sectors", href: "#sectors" },
