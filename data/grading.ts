@@ -83,8 +83,10 @@ export function gradeIPO(ipo: IPOData, currentPrice?: number): ScoredIPO {
   };
 }
 
-export function gradeAll(ipos: IPOData[]): ScoredIPO[] {
-  return ipos.map((ipo) => gradeIPO(ipo)).sort((a, b) => b.gradeBreakdown.total - a.gradeBreakdown.total);
+export function gradeAll(ipos: IPOData[], prices?: Record<string, number>): ScoredIPO[] {
+  return ipos
+    .map((ipo) => gradeIPO(ipo, prices?.[ipo.ticker]))
+    .sort((a, b) => b.gradeBreakdown.total - a.gradeBreakdown.total);
 }
 
 export const GRADE_COLORS: Record<Grade, string> = {

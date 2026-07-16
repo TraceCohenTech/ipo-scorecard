@@ -2,6 +2,7 @@
 import { useMemo } from "react";
 import { ipos } from "@/data/ipos";
 import { gradeAll, type ScoredIPO, type Grade, GRADE_COLORS } from "@/data/grading";
+import { currentPrices } from "@/data/prices";
 import Nav from "@/components/Nav";
 import CountUp from "@/components/CountUp";
 import GradeBadge from "@/components/GradeBadge";
@@ -26,7 +27,7 @@ function avgGradeLetter(scored: ScoredIPO[]): { grade: Grade; avg: number } {
 }
 
 export default function Home() {
-  const scored = useMemo(() => gradeAll(ipos), []);
+  const scored = useMemo(() => gradeAll(ipos, currentPrices), []);
   const aboveIPO = scored.filter((i) => i.priceReturnPct > 0).length;
   const abovePct = (aboveIPO / scored.length) * 100;
   const { grade: classGrade, avg: classAvg } = avgGradeLetter(scored);
